@@ -1,0 +1,8 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/centos-stream-10"
+  config.vm.box_version = "202502.21.0"
+
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+
+  config.vm.provision "shell", path: "../provision/vagrant-ssh.sh"
+end
