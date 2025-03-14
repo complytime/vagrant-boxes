@@ -1,6 +1,8 @@
+require_relative "../vagrant-vars.rb"
+
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/centos-stream-10"
-  config.vm.box_version = "202502.21.0"
+  config.vm.box = ComplyTime.box
+  config.vm.box_version = ComplyTime.box_version
 
   config.vm.synced_folder '.', '/vagrant', disabled: true
 
