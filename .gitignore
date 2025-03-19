@@ -1,0 +1,41 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin
+testbin/*
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# editor and IDE paraphernalia
+.idea
+*.swp
+*.swo
+*~
+.vscode
+
+# Output of gorelease
+dist
+
+# ignore output by test
+/**/_test
+
+# Dependency directories (remove the comment below to include it)
+vendor/
+
+# testing workspace created by openscap-plugin
+user_workspace
+
+# Outputs
+assessment-plan.json
+!**/testdata/assessment-plan.json
+!**/testdata/assessment-results.json
+
+# Vagrant
+.vagrant
