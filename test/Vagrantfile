@@ -1,11 +1,9 @@
-require_relative "../lib/complytime.rb"
-
 Vagrant.configure("2") do |config|
   config.vm.box = ComplyTime.box
   config.vm.box_version = ComplyTime.box_version
 
   config.vm.synced_folder '.', '/vagrant', disabled: true
 
-  config.vm.provision "shell", path: "../provision/zsh.sh"
+  config.vm.provision "shell", path: "./provision/arm64/provision/vbox-guest-additions.sh"
   config.vm.provision "shell", path: "../provision/vagrant-ssh.sh"
 end

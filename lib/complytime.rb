@@ -13,6 +13,13 @@ class ComplyTime
       if !args[0].nil?
         @@table[method_symbol] = args[0]
       end
+      if !@@table.key?(method_symbol)
+        raise "
+No value for #{method_symbol} has been set in the file vagrant-vars.rb.
+If you think it has been set double check the spelling and remember not to use an =
+This is wrong:    #{method_symbol} = \"value\"
+This is correct:  #{method_symbol} \"value\""
+      end
       @@table[method_symbol]
     end
 
