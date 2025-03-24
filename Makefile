@@ -1,5 +1,4 @@
-VAGRANT_RUBY="$(shell if [[ $$(uname) == "Darwin" ]]; then echo "/opt/vagrant/embedded/bin/ruby"; else echo "/usr/bin/ruby"; fi)"
-ARCH="$(shell ${VAGRANT_RUBY} lib/arch.rb)"
+ARCH="$(shell ruby lib/arch.rb)"
 PROVIDER="$(shell if [[ $(ARCH) == "arm64" ]]; then echo "virtualbox"; else echo "libvirt"; fi)"
 VAGRANT_STATUS="$(shell cd $(ARCH) && vagrant status --machine-readable | grep ",state," | awk -F , '{print $$4}')"
 MACHINE_ID_FILET=$(ARCH)/.vagrant/machines/default/$(PROVIDER)/id
