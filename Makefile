@@ -1,4 +1,4 @@
-ARCH="$(shell ruby lib/arch.rb)"
+ARCH="$(shell if [[ $$(uname -m) == "arm64" ]]; then echo "arm64"; else echo "amd64"; fi)"
 PROVIDER="$(shell if [[ $(ARCH) == "arm64" ]]; then echo "virtualbox"; else echo "libvirt"; fi)"
 VAGRANT_STATUS="$(shell cd $(ARCH) && vagrant status --machine-readable | grep ",state," | awk -F , '{print $$4}')"
 MACHINE_ID_FILET=$(ARCH)/.vagrant/machines/default/$(PROVIDER)/id
@@ -29,6 +29,16 @@ stop:
 		fi
 .PHONY: stop
 
+build-base-box:
+	cd $(ARCH); \
+		packer build -force centos-stream-10.pkr.hcl; \
+		ret_val=$$?; \
+		if [[ $$ret_val != 0 ]]; then \
+			>&2 echo "vagrant provision failed"; \
+			exit $$ret_val; \
+		fi
+.PHONY: build-base-box
+
 build: start
 	cd $(ARCH); \
 		vagrant provision; \
@@ -40,19 +50,31 @@ build: start
 .PHONY: build
 
 package: stop
-	cd $(ARCH); \
-		if [[ -f $(MACHINE_ID_FILE) ]]; then \
-			vagrant package --base $(MACHINE_ID); \
-			ret_val=$$?; \
-			if [[ $$ret_val != 0 ]]; then \
-				>&2 echo "vagrant package failed"; \
-				exit $$ret_val; \
-			fi \
-		else \
-			echo "You need to build the box before you can package it."; \
-		fi	
+	if [[ -f $(MACHINE_ID_FILE) ]]; then \
+		cd $(ARCH); \
+		vagrant package --base $(MACHINE_ID) --output ../package.box; \
+		ret_val=$$?; \
+		if [[ $$ret_val != 0 ]]; then \
+			>&2 echo "vagrant package failed"; \
+			exit $$ret_val; \
+		fi \
+	else \
+		echo "You need to build the box before you can package it."; \
+	fi
 .PHONY: package
 
-clean:
+clean-package:
+	rm package.box
+.PHONY: clean-package
+
+clean-build:
 	cd $(ARCH) && vagrant destroy
+.PHONY: clean-build
+
+clean-base-box:
+	cd $(ARCH) && rm centos-stream-10.box
+.PHONY: clean-base-box
+
+clean: clean-build clean-package clean-base-box
+
 .PHONY: clean
