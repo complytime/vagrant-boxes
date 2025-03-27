@@ -1,7 +1,7 @@
 require_relative "../lib/complytime.rb"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "./centos-stream-10-arm64.box"
+  config.vm.box = "./centos-stream-10.box"
 
   config.vm.synced_folder '.', '/vagrant', disabled: true
 
