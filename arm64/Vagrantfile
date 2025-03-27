@@ -5,8 +5,21 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder '.', '/vagrant', disabled: true
 
-  config.vm.provision "shell", name: "dnf-installs", path: "../provision/dnf-installs.sh"
-  config.vm.provision "shell", name: "vbox-guest-additions", path: "./provision/vbox-guest-additions.sh"
-  config.vm.provision "shell", name: "zsh", path: "../provision/zsh.sh"
+  config.vm.provision "shell", name: "dnf-installs",
+      path: "../provision/dnf-installs.sh",
+      privileged: false
+  
+  config.vm.provision "shell", name: "vbox-guest-additions", 
+      path: "./provision/vbox-guest-additions.sh",
+      privileged: false
+  
+  config.vm.provision "shell", name: "zsh",
+      path: "../provision/zsh.sh",
+      privileged: false
+  
+  config.vm.provision "shell", name: "python",
+      path: "../provision/python.sh",
+      privileged: false
+  
   # config.vm.provision "shell", name: "vagrant-ssh", path: "../provision/vagrant-ssh.sh"
 end
