@@ -1,7 +1,4 @@
 locals {
-  version       = "1.0.0"
-  client_id     = ""
-  client_secret = ""
   iso_url       = "https://mirror.shastacoe.net/centos-stream/10-stream/BaseOS/aarch64/iso/CentOS-Stream-10-latest-aarch64-dvd1.iso"
   iso_checksum  = "sha256:46257f4442901bb55c2efffb7d53c2a53fd94645218fce932ba403805bb0ac5e"
 }
@@ -68,27 +65,11 @@ source "virtualbox-iso" "centos-stream-10" {
 build {
   sources = ["source.virtualbox-iso.centos-stream-10"]
 
-  # provisioner "shell" {
-  #   inline = [
-  #     "sudo systemctl disable firewalld", # Redundant if disabled in ks.cfg, but ensures it's off
-  #     "sudo systemctl stop firewalld"     # Redundant if disabled in ks.cfg, but ensures it's off
-  #   ]
-  # }
-
-  
-
   post-processors {
     post-processor "vagrant" {
       output = "centos-stream-10-arm64.box"
       keep_input_artifact = true # Keep the VM for debugging or further use
       #vagrantfile_template = ["metadata.json"]
     }
-    # post-processor "vagrant-registry" {
-    #   client_id     = "${local.client_id}"
-    #   client_secret = "${local.client_secret}"
-    #   box_tag       = "complytime/centos-stream-10"
-    #   version       = "${local.version}"
-    #   architecture  = "arm64"
-    # }
   }
 }
