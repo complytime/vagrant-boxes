@@ -7,6 +7,4 @@ export BOX_FILE="$(absolute_path package.box)"
 [[ -f "${BOX_FILE}" ]]
 fail_if "Package file doesn't exist: ${BOX_FILE}"
 
-cd "test"
-
 vagrant up

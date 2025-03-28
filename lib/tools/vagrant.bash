@@ -8,9 +8,18 @@ function provider(){
   fi
 }
 
-export PROVIDER="$(provider)"
-export MACHINE_ID_FILE="${ARCH}/.vagrant/machines/default/${PROVIDER}/id"
-export MACHINE_ID="$(cat ${MACHINE_ID_FILE})"
+function machine_id_file(){
+  debug "${ARCH}/.vagrant/machines/default/$(provider)/id"
+  echo "${ARCH}/.vagrant/machines/default/$(provider)/id"
+}
+
+function machine_id(){
+  cat "$(machine_id_file)"
+}
+
+function machine_exists(){
+  [[ ! -f "$(machine_id_file)" ]]
+}
 
 function vagrant_status(){
   vagrant status --machine-readable | grep ",state," | awk -F , '{print $$4}'
@@ -18,6 +27,7 @@ function vagrant_status(){
 }
 
 function vagrant(){
+  good "$(which vagrant) $@"
   "$(which vagrant)" "$@"
   local vagrant_exit_code=$?
 

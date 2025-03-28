@@ -39,3 +39,4 @@ assessment-plan.json
 # Vagrant
 .vagrant
 *.box
+scratch.*

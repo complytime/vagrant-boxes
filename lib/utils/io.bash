@@ -4,6 +4,14 @@ function absolute_path()
 {
   local partial_path="${@}"
 
+  if [[ -n "${PATHS_PROJECT_LIB}" ]]; then
+    # debug "before: ${partial_path}"
+    while [[ $partial_path =~ ^bin/\.\./lib/(.*) ]]; do
+      partial_path="${PATHS_PROJECT_LIB}/${BASH_REMATCH[1]}"
+    done
+    # debug "after: ${partial_path}"
+  fi
+
   if [[ -d "$partial_path" ]]; then
     partial_path="$( cd "$partial_path" && pwd )"
   else
