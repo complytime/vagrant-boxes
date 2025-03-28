@@ -9,7 +9,6 @@ function provider(){
 }
 
 function machine_id_file(){
-  debug "${ARCH}/.vagrant/machines/default/$(provider)/id"
   echo "${ARCH}/.vagrant/machines/default/$(provider)/id"
 }
 
