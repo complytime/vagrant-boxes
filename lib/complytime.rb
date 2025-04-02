@@ -33,7 +33,7 @@ This is correct:  #{method_symbol} \"value\""
     end
 
     def load()
-      file_path = '../vagrant-vars.rb'
+      file_path = '../vagrant-common.rb'
       self.class_eval(File.read(file_path), file_path, 1)
     end
   end
