@@ -1,8 +1,15 @@
 require_relative "../lib/complytime.rb"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = ComplyTime.box
-  config.vm.box_version = ComplyTime.box_version
+  config.vm.box = "centos/stream10"
+  config.vm.box_version = "20250317.0"
+
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.memory = "2048"
+    libvirt.cpus = 2
+    libvirt.default_prefix = "complytime_"
+    libvirt.channel :type => 'unix', :target_name => 'org.qemu.guest_agent.0', :target_type => 'virtio'
+  end
 
   config.vm.synced_folder '.', '/vagrant', disabled: true
 
