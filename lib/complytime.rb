@@ -23,6 +23,15 @@ This is correct:  #{method_symbol} \"value\""
       @@table[method_symbol]
     end
 
+    def common_provision(config)
+      config.instance_exec(config, &@@provision_block)
+    end
+
+    @@provision_block = nil
+    def provision(&block)
+      @@provision_block = block
+    end
+
     def load()
       file_path = '../vagrant-vars.rb'
       self.class_eval(File.read(file_path), file_path, 1)

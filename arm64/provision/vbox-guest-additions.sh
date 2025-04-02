@@ -3,7 +3,6 @@
 VBOX_VERSION="7.1.6"
 
 sudo dnf install kernel-devel-$(uname -r) -y
-sudo dnf groupinstall "Development Tools" -y
 sudo dnf install dkms -y
 sudo dnf clean all
 

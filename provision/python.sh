@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+sudo dnf groupinstall "Development Tools" -y
+sudo dnf install make gcc patch zlib-devel \
+      bzip2 bzip2-devel readline-devel \
+      sqlite sqlite-devel openssl-devel \
+      tk-devel libffi-devel xz-devel \
+      libuuid-devel gdbm-libs libnsl2 -y
+
 export PYTHON_VERSION=3.8.2
 
 curl -fsSL https://pyenv.run | bash
@@ -23,11 +30,5 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init - bash)"
 
 pyenv update
-
-sudo dnf install make gcc patch zlib-devel \
-      bzip2 bzip2-devel readline-devel \
-      sqlite sqlite-devel openssl-devel \
-      tk-devel libffi-devel xz-devel \
-      libuuid-devel gdbm-libs libnsl2 -y
 
 pyenv install $PYTHON_VERSION
