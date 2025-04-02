@@ -68,7 +68,7 @@ build {
   post-processors {
     post-processor "vagrant" {
       output = "centos-stream-10.box"
-      keep_input_artifact = true # Keep the VM for debugging or further use
+      keep_input_artifact = false # Keep the VM for debugging or further use
       #vagrantfile_template = ["metadata.json"]
     }
   }
