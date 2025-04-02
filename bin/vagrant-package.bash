@@ -17,7 +17,7 @@ Looks like you haven't run make vagrant-build"
 
 vagrant up --no-provision
 
-vagrant ssh -c "$(cat ${PATHS_PROJECT_HOME}/provision/vagrant-ssh.bash)"
+vagrant ssh -c "$(cat ${PATHS_PROJECT_HOME}/provision/vagrant-ssh.sh)"
 
 vagrant halt
 
