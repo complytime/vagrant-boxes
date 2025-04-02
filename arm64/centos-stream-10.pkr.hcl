@@ -1,6 +1,6 @@
 locals {
   iso_url       = "https://mirror.shastacoe.net/centos-stream/10-stream/BaseOS/aarch64/iso/CentOS-Stream-10-latest-aarch64-dvd1.iso"
-  iso_checksum  = "sha256:46257f4442901bb55c2efffb7d53c2a53fd94645218fce932ba403805bb0ac5e"
+  iso_checksum  = "sha256:cbe3c79baa14f32d175e9293bb21581f0c708f810dd3d41cfd03154980d70b9d"
 }
 
 packer {

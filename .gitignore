@@ -40,3 +40,4 @@ assessment-plan.json
 .vagrant
 *.box
 scratch.*
+output-centos-stream-10
